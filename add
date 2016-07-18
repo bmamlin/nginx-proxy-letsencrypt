@@ -1,10 +1,9 @@
 #!/bin/bash
 CONFIG_FILE=config.env
-WEB_NETWORK=web
 
 display_usage() {
 	echo "Add a docker container at a given domain. This will run the image"
-	echo "on Docker's \"$WEB_NETWORK\" network and detach, setting virtual host and "
+	echo "on Docker's \"$NGINX_PROXY_NETWORK\" network and detach, setting virtual host and "
 	echo "LetsEncrypt parameters to host the image securely at the chosen domain."
 	echo -e "\nUsage:\n\t./${0##*/} domain_name image_name [docker run params]"
 	echo -e "\nExample:\n\t./${0##*/} foo.example.com myimage:latest --name foo\n"
@@ -27,4 +26,4 @@ then
 	exit 2
 fi
 
-docker run -d -e VIRTUAL_HOST="$1" -e LETSENCRYPT_HOST="$1" -e LETSENCRYPT_EMAIL="$POSTMASTER" --net $WEB_NETWORK ${@:3} $2
+docker run -d -e VIRTUAL_HOST="$1" -e LETSENCRYPT_HOST="$1" -e LETSENCRYPT_EMAIL="$POSTMASTER" --net $NGINX_PROXY_NETWORK ${@:3} $2
