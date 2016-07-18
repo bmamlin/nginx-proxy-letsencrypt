@@ -12,7 +12,7 @@ Set up your DNS to forward a subdomain. For example, by creating two `A` records
 one for the subdomain and a second with a wildcard, both pointing to the IP address 
 of the host server.
 
-`foo.example.com    300  A  1.2.3.4`
+`foo.example.com    300  A  1.2.3.4`<br>
 `*.foo.example.com  300  A  1.2.3.4`
 
 Create a "web" network. Docker containers must be on this network to be proxied.
