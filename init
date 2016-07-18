@@ -1,0 +1,4 @@
+#!/bin/bash
+source config.env
+echo Creating Docker network "$NGINX_PROXY_NETWORK" for use by proxy
+docker create network $NGINX_PROXY_NETWORK
