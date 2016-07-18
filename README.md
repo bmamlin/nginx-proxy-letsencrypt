@@ -8,17 +8,25 @@ generated & renewed certificates from [LetEncrypt](https://letsencrypt.org)).
 
 ## Setup
 
-Set up your DNS to forward a subdomain. For example, by creating two `A` records:
+First, set up your DNS to forward a subdomain. For example, by creating two `A` records:
 one for the subdomain and a second with a wildcard, both pointing to the IP address 
 of the host server.
 
 `foo.example.com    300  A  1.2.3.4`<br>
 `*.foo.example.com  300  A  1.2.3.4`
 
-Create a "web" network. Docker containers must be on this network to be proxied.
+Second, create a "web" network. Docker containers must be on this network to be proxied.
 This only needs to be done once.
 
 `$ docker network create web`
+
+or, use the convenience script, to create the network:
+
+`./init`
+
+Lastly, edit the `config.env` file to specify your postmaster email address. This email 
+address will be associated with each LetsEncrypt certificate, where you will get notifications 
+of expiring certificates (if the automatic renewal has failed for some reason).
 
 ## Start Proxy Server
 
