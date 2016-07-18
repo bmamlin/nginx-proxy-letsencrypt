@@ -19,4 +19,12 @@ then
 fi
 
 source $CONFIG_FILE
+
+if [ "$POSTMASTER" = "" ]
+then
+	echo "You must provide an email for LetsEncrypt before you can add servers."
+	echo "Edit the POSTMASTER setting in $CONFIG_FILE."
+	exit 2
+fi
+
 docker run -d -e VIRTUAL_HOST="$1" -e LETSENCRYPT_HOST="$1" -e LETSENCRYPT_EMAIL="$POSTMASTER" --net $WEB_NETWORK ${@:3} $2
