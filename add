@@ -1,0 +1,22 @@
+#!/bin/bash
+CONFIG_FILE=config.env
+WEB_NETWORK=web
+
+display_usage() {
+	echo "Add a docker container at a given domain. This will run the image"
+	echo "on Docker's \"$WEB_NETWORK\" network and detach, setting virtual host and "
+	echo "LetsEncrypt parameters to host the image securely at the chosen domain."
+	echo -e "\nUsage:\n\t./${0##*/} domain_name image_name [docker run params]"
+	echo -e "\nExample:\n\t./${0##*/} foo.example.com myimage:latest --name foo\n"
+	echo -e "LetsEncrypt email should be defined as POSTMASTER within"
+	echo -e "a file named $CONFIG_FILE in this folder.\n"
+}
+
+if [ $# -le 1 ]
+then
+	display_usage
+	exit 1
+fi
+
+source $CONFIG_FILE
+docker run -d -e VIRTUAL_HOST=$1 -e LETSENCRYPT_HOST=$1 LETENCRYPT_EMAIL=$POSTMASTER --net $WEB_NETWORK ${@:3} $2
