@@ -40,7 +40,17 @@ automatically generates and renews a TLS certificate for each site using
 
 ## Add images to be securely proxied
 
-Then add any images you like to be securely proxied.
+Then add any images you like to be securely proxied:
+
+```bash
+$ docker run -d -e VIRTUAL_HOST="foo.example.com" \
+                -e LETSENCRYPT_HOST="foo.example.com" \
+                -e LETSENCRYPT_EMAIL="postmaster@example.com"
+                --net web myimage \
+                --name foo
+```
+
+or use the provided convenience `add` script that uses settings from `config.env`:
 
 `$ ./add foo.example.com myimage --name foo`
 
