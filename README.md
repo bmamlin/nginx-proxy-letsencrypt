@@ -42,12 +42,11 @@ You can find out the networks of your containers using:
 $ docker network ls
 ```
 
-Assuming your proxy network is `nginxproxyletsencrypt_default` and 
-the container you wish to proxy is on the `foo` network, you can 
-enable the proxy with:
+Assuming your the container you wish to proxy is on the `foo` 
+network, you can enable the proxy with:
 
 ```bash
-$ docker network connect foo nginxproxyletsencrypt_default
+$ docker network connect foo nginx-monitor
 ```
 
 It can take a minute or two for secure certs to be generated. You 
